@@ -7,16 +7,22 @@ Allows user search for a city and displays current weather and 5-day forecast fo
 
 ## Built with React and Chakra-UI
 
+## Usage
+
+```sh
+navigate into weather-app directory (cd .\weather-app\)
+create .env file (example in .env.example)
+```
+
 ## Install dependencies
 
 ```sh
 npm install
 ```
 
-## Usage
+## Start Project
 
 ```sh
-navigate into weather-app directory (cd .\weather-app\)
 npm start
 ```
 

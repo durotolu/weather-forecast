@@ -1,19 +1,20 @@
 import React from 'react';
-import { Box, Badge, Heading, Slider, VStack, SliderFilledTrack, SliderTrack, SliderThumb, SliderMark, Image, Flex, Text } from '@chakra-ui/react';
+import { Box, Badge, Heading, Slider, VStack, SliderFilledTrack, SliderTrack, SliderThumb, SliderMark, Image, Flex, Text, useMediaQuery } from '@chakra-ui/react';
 import { ArrowRightIcon } from '@chakra-ui/icons'
 
 function CurrentWeather({ weather, unit }) {
-
+  const [isLargerThan650] = useMediaQuery('(min-width: 650px)')
+  
   return (
-    <VStack spacing={10} px='5' py='12'>
-      <Heading size={'2xl'} mb={'8'}>Current conditions</Heading>
+    <VStack spacing={isLargerThan650 ? 10 : 4} px='5' py='12'>
+      {isLargerThan650 && <Heading size={'2xl'} mb={'8'}>Current conditions</Heading>}
       <Heading color='gray.500' size='xl'>
         {weather.current?.name}, {weather.current?.sys?.country}
       </Heading>
       <Badge fontSize='lg' mt={'500px'} colorScheme={'teal'}>
         {weather.current?.main?.humidity}% humidity
       </Badge>
-        { weather.current?.main?.temp_max !== weather.current?.main?.temp_min ?
+        {isLargerThan650 && weather.current?.main?.temp_max !== weather.current?.main?.temp_min ?
           <Slider value={weather.current?.main?.temp} min={weather.current?.main?.temp_min} max={weather.current?.main?.temp_max}>
             <SliderMark value={weather.current?.main?.temp_min} mt='1' ml='-2.5' fontSize='sm'>
               {weather.current?.main?.temp_min}
@@ -39,7 +40,8 @@ function CurrentWeather({ weather, unit }) {
           </Slider> : 
           <Badge borderRadius='full' px='2' colorScheme={'red' } fontSize='1em'>
             {weather.current?.main?.temp}°{unit === 'metric' ? 'C' : 'F'}
-          </Badge>}
+          </Badge>
+        }
         <Box fontSize='lg'>
           Feels like {weather.current?.main?.feels_like}°C
         </Box>
