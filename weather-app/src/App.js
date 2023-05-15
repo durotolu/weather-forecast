@@ -66,6 +66,8 @@ function App() {
           duration: 5000,
           isClosable: true,
         });
+        setAutocompleteCities([])
+        return
       }
       const current = await currentResponse.json();
       const forecast = await forecastResponse.json();
@@ -87,7 +89,7 @@ function App() {
           getLocation={getLocation}
           setCity={setCity}
          />
-         {weather.current?.message ? <Heading>Search for City here</Heading> : <CurrentWeather weather={weather} unit={unit} />}
+         {!Object.keys(weather.current)?.length ? <Heading>Search for City here</Heading> : <CurrentWeather weather={weather} unit={unit} />}
       </Box>
       <Forecast weather={weather} unit={unit}  />
     </Flex>
